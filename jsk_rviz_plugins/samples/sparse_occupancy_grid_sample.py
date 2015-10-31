@@ -13,7 +13,7 @@ def cells(x_offset):
     ret = []
     for i in range(0, 20):
         for j in range(0, 20):
-            ret.append(Point(x = 0.05 * i + x_offset, y = 0.05 * j, z = 0))
+            ret.append(Point(x = 0.05 * i + x_offset, y = 0.05 * j, z = i*0.01))
     return ret
 
 

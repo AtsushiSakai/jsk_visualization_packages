@@ -5,6 +5,7 @@ from jsk_recognition_msgs.msg import PolygonArray
 from geometry_msgs.msg import Polygon, PolygonStamped, Point32
 from std_msgs.msg import Header
 from math import sin, cos, pi
+import tf
 import numpy as np
 def SquarePolygon(header):
     p = PolygonStamped()
@@ -53,6 +54,10 @@ if __name__ == "__main__":
     rospy.init_node("polygon_array_sample")
     pub = rospy.Publisher("~output", PolygonArray)
     r = rospy.Rate(10)
+
+    br=tf.TransformBroadcaster()
+
+
     while not rospy.is_shutdown():
         msg = PolygonArray()
         header = Header()
@@ -66,3 +71,11 @@ if __name__ == "__main__":
         msg.labels = [0, 1, 2, 3]
         msg.likelihood = [np.random.ranf(), np.random.ranf(), np.random.ranf(), np.random.ranf()]
         pub.publish(msg)
+
+        br.sendTransform(
+                (0,0,0),
+                tf.transformations.quaternion_from_euler(0,0,0),
+                rospy.Time.now(),
+                'map',
+                'world'
+                )
