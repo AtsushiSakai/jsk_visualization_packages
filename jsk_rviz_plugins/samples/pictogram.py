@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
+import tf
 from jsk_rviz_plugins.msg import Pictogram
 from random import random
 rospy.init_node("pictogram_sample")
@@ -842,6 +843,8 @@ pictograms = ["phone",
 "fa-youtube-play",
 "fa-youtube-square"]
 
+br=tf.TransformBroadcaster()
+
 counter = 0
 while not rospy.is_shutdown():
     msg = Pictogram()
@@ -867,3 +870,11 @@ while not rospy.is_shutdown():
     counter = counter + 1
     if len(pictograms) == counter:
         counter = 0
+        
+    br.sendTransform(
+            (0,0,0),
+            tf.transformations.quaternion_from_euler(0,0,0),
+            rospy.Time.now(),
+            'map',
+            'base_link'
+            )

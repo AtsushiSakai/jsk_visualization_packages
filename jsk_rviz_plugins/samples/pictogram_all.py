@@ -4,6 +4,7 @@
 # Please run rviz by rosrun rviz rviz -d `rospack find jsk_rviz_plugins`/config/pictogram.rviz
 #
 
+import tf
 import rospy
 import math
 from jsk_rviz_plugins.msg import Pictogram, PictogramArray
@@ -848,6 +849,8 @@ pictograms = ["phone",
 "fa-youtube-play",
 "fa-youtube-square"]
 
+br=tf.TransformBroadcaster()
+
 counter = 0
 while not rospy.is_shutdown():
     initial_x = -int(math.sqrt(len(pictograms)))/2
@@ -883,3 +886,11 @@ while not rospy.is_shutdown():
     counter = counter + 1
     if len(pictograms) == counter:
         counter = 0
+
+    br.sendTransform(
+            (0,0,0),
+            tf.transformations.quaternion_from_euler(0,0,0),
+            rospy.Time.now(),
+            'map',
+            'base_link'
+            )
