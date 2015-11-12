@@ -21,7 +21,7 @@ from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 from jsk_recognition_msgs.msg import PlotData
 import numpy as np
-from sklearn import linear_model, datasets
+#from sklearn import linear_model, datasets
 import os, sys
 import argparse
 
@@ -188,8 +188,8 @@ class Plot2DWidget(QWidget):
             a,b = np.linalg.lstsq(A,Y)[0]
             axes.plot(X,(a*X+b),"g--", label="{0} x + {1}".format(a, b))
         if self.fit_line_ransac:
-            model_ransac = linear_model.RANSACRegressor(linear_model.LinearRegression(), min_samples=2,
-                                                        residual_threshold=self.fit_line_ransac_outlier)
+            #model_ransac = linear_model.RANSACRegressor(linear_model.LinearRegression(), min_samples=2,
+                                                        #residual_threshold=self.fit_line_ransac_outlier)
             X = np.array(data_y[-1].xs).reshape((len(data_y[-1].xs), 1))
             Y = np.array(data_y[-1].ys)
             model_ransac.fit(X, Y)
