@@ -856,7 +856,8 @@ while not rospy.is_shutdown():
     msg.pose.orientation.x = 0
     msg.pose.orientation.y = -0.7
     msg.pose.orientation.z = 0
-    msg.mode = Pictogram.PICTOGRAM_MODE
+    #msg.mode = Pictogram.PICTOGRAM_MODE
+    msg.mode = Pictogram.STRING_MODE
     msg.speed = 1.0
     # msg.ttl = 5.0
     msg.size = 1
