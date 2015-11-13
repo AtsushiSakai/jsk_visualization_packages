@@ -48,6 +48,8 @@ nowtime = datetime.now().strftime("%Y%m%d-%H%M%S")
 
 def format_csv_filename(form, topic_name):
     global seq
+    if form==None:
+        return "Convertedbag.csv"
     ret = form.replace('%t', topic_name.replace('/','-'))
     ret = ret.replace('%s', str(seq))
     seq += 1
