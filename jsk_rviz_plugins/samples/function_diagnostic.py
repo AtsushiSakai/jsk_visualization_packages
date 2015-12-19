@@ -11,13 +11,13 @@ temperature = 0
 
 def check_temprature(stat):
 
-    #$B%(%i!<H=Dj(B
+    #エラー判定
     if temperature < 10:
         stat.summary(diagnostic_msgs.msg.DiagnosticStatus.OK, "Temperature OK")
     else:
         stat.summary(diagnostic_msgs.msg.DiagnosticStatus.WARN, "Too high")
 
-    #$B%(%i!<>pJs$rDI2C(B
+    #エラー情報を追加
     stat.add("Top-Side Margin", 10 - temperature)
     return stat
 
@@ -25,13 +25,13 @@ def check_temprature(stat):
 if __name__=='__main__':
     rospy.init_node("diagnostic_updater_example2")
 
-    # Updater$B$N%*%V%8%'%/%H$r:n@.(B
+    # Updaterのオブジェクトを作成
     updater = diagnostic_updater.Updater()
 
-    # $B%O!<%I%&%'%"(BID$B$r@_Dj(B
+    # ハードウェアIDを設定
     updater.setHardwareID("Sensor1")
 
-    # $B%O!<%I%(%i!<%A%'%C%/5!G=$NDI2C(B
+    # ハードエラーチェック機能の追加
     updater.add("upper-temperature",check_temprature)
 
     while not rospy.is_shutdown():
