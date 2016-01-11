@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# usage: python bag_plotter.py bag_plotter.yaml sampledata.bag
 
 import rosbag
 import yaml
