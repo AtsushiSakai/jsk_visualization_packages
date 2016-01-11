@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.widgets import Button
 import time
-from progressbar import *
+#from progressbar import *
 from std_msgs.msg import Header
 import argparse
 import rospy
@@ -238,14 +238,14 @@ class BagPlotter():
                 info = yaml.load(bag._get_yaml_info())
                 message_num = sum([topic["messages"] for topic in info["topics"]
                                    if topic["topic"] in self.all_topics])
-                widgets = [Fore.GREEN + "%s: " % (abag) + Fore.RESET, Percentage(), Bar()]
-                pbar = ProgressBar(maxval=max(1, message_num), widgets=widgets).start()
+                #widgets = [Fore.GREEN + "%s: " % (abag) + Fore.RESET, Percentage(), Bar()]
+                #  pbar = ProgressBar(maxval=max(1, message_num), widgets=widgets).start()
                 counter = 0
                 read_data = [(topic, msg, timestamp)
                              for topic, msg, timestamp
                              in bag.read_messages(topics=self.all_topics)]
                 for topic, msg, timestamp in read_data:
-                    pbar.update(counter)
+                    #  pbar.update(counter)
                     # check topic has header field
                     if not hasattr(msg, "header"):
                         msg = MessageWrapper(msg, Header())
@@ -266,7 +266,7 @@ class BagPlotter():
                     else:
                         max_stamp = msg.header.stamp
                     counter = counter + 1
-                pbar.finish()
+                #  pbar.finish()
         if no_valid_data:
             print Fore.RED + "Cannot find valid data in bag files, valid topics are:\n%s" % ", ".join(self.all_topics) + Fore.RESET
             return
@@ -331,3 +331,7 @@ class BagPlotter():
     def run(self):
         self.processConfFile()
         self.plot()
+
+plotter=BagPlotter()
+plotter.parse()
+plotter.run()
